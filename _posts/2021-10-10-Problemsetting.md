@@ -12,7 +12,7 @@ A couple of years ago, I was assigned as Teacher Assistant to the *Advanced Calc
 + Didn't appear in a previous exam, since student got access to statements and resolutions of many old exam.
 + Were appropriate and meaningful.
 
-I feel that I kind of succedded, but I'll ley you jugde by yourselves!
+I feel that I kind of succedded, but I'll let you decide!
 
 # Advanced Calculus exercises
 
