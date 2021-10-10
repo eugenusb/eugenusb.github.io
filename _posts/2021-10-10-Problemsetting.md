@@ -7,10 +7,11 @@ categories: math
 
 # The challenge
 
-A couple of years ago, I was assigned as Teacher Assistant to the *Advanced Calculus* course for second-year math students. There is a wonderful textbook for this course, *Espaços Metricos* by Lages Lima (original in portuguese) which contains a whole lot of interesting exercises. When the time to prepare the exams arrived, I was faced with the seemingly impossible task of coming up with exercises that:
-+ Didn't appear in Lima's book, which most students read and know.
-+ Didn't appear in a previous exam, since student got access to statements and resolutions of many old exam.
-+ Were appropriate and meaningful.
+A couple of years ago, I was assigned as Teacher Assistant to the *Advanced Calculus* course for second-year math students. There is a wonderful textbook for this course, *Espaços Metricos* by Lages Lima (original in portuguese) which contains an awful lot of interesting exercises. When the time to prepare the exams arrived, I was faced with the seemingly impossible task of coming up with exercises that:
+
++ Didn't appear in Lima's book, which most students read and know,
++ Didn't appear in a previous exam, since student got access to statements and resolutions of many old exam,
++ And were appropriate and meaningful.
 
 I feel that I kind of succedded, but I'll let you decide!
 
