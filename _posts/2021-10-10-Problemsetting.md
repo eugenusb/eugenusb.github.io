@@ -59,7 +59,11 @@ Let $$Lip_M^0[a,b] := \{ f:[a,b] \to \mathbb{R} : |f(x) - f(y)| \leq M|x -y| \te
 	Probably, the easiest way to prove this is by using Arzela-Ascoli theorem. It is not difficult to show that the sequence \((f_n)_{n \in \mathbb{N}}\) should be uniformly convergent and in this case, \(f\) is the only possible candidate. However, it could also be solved by hand by noting that for any given \(\delta > 0\) and \(x \in [a,b]\),
 	
 	$$
-		|f_n(x) - f(x)| \cdot \delta = \int_{x}^{x+\delta} |f_n(x) - f(x)| \, dt \leq \int_{x}^{x+\delta} |f_n(x) - f_n(t)| \, dt + \int_{x}^{x+\delta} |f_n(t) - f(t)| \, dt + \int_{x}^{x+\delta} |f(t) - f(x)| \, dt
+		\begin{align*}
+			& |f_n(x) - f(x)| \cdot \delta = \int_{x}^{x+\delta} |f_n(x) - f(x)| \, dt \leq \\
+			& \int_{x}^{x+\delta} |f_n(x) - f_n(t)| \, dt + \int_{x}^{x+\delta} |f_n(t) - f(t)| \, dt + \int_{x}^{x+\delta} |f(t) - f(x)| \, dt \leq \\
+			& M \int_{x}^{x+\delta} |x - t| \, dt + \int_{0}^{1} |f_n(t) - f(t)| \, dt + M \int_{x}^{x+\delta} |t - x| \, dt
+		\end{align*}
 	$$
 
 	and some additional computations.
