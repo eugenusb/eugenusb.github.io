@@ -1,8 +1,12 @@
 ---
 layout: post
 title:  "Literary Cryptograms"
+subtitle: "Even wondered how complex crosswords and cryptograms are generated?  
+		In this post I explain how to build instances of a particularly challenging puzzle using Integer Programming."
 date:   2021-10-11
 categories: optimization
+background: '/img/crossword.jpg'
+caption: 'Photo by <a href="https://unsplash.com/@alexlowenthal?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Alexandra Lowenthal</a> on <a href="https://unsplash.com/s/photos/crossword?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>'
 ---
 
 # Sunday
@@ -11,7 +15,9 @@ It was a Sunday morning just like any other. I was having my coffee and casually
 
 Before proceeding, let me describe what exactly the puzzle looks like, since there are many different kinds of crosswords called "Literary Cryptogram". The one that I'm referring to is composed by a set of unknown words to guess disposed one after the other and aligned by its initial letter. Once you discover the words by using the given clues, the initials should form the title of some literary work. So far, nothing unusual or extraordinary. What caught my attention for the first time that morning was the final restriction: the blanks come with a mapping to a rectangular grid of white and black squares in such a way that if you transcribe the letters, an excerpt from the literary work should appear.
 
-The creator of this puzzle, Stanko Jerebic, was born in Slovenia and became interested in crosswords as a means of perfecting his Spanish after he moved to Buenos Aires, Argentina. Although he held a degree in Philosophy, he had several jobs ranging from carpenter to undertaker before becoming a full-time puzzle maker. According to the few notes about him I could find, his use of technology was limited to the digitalization of its puzzles. The "Literary Cryptogram" stopped featuring in the newspaper after his [death](https://www.lanacion.com.ar/cultura/stanko-jerebic-nid948897/) in 2007. To this day, I have no clue what method he followed to prepare these peculiar crosswords. What I do know is how *I* would go about creating them: integer programming!
+The creator of this puzzle, Stanko Jerebic, was born in Slovenia and became interested in crosswords as a means of perfecting his Spanish after he moved to Buenos Aires, Argentina. Although he held a degree in Philosophy, he had several jobs ranging from carpenter to undertaker before becoming a full-time puzzle maker. According to the few notes about him I could find, his use of technology was limited to the digitalization of its puzzles. The "Literary Cryptogram" stopped featuring in the newspaper after his death in 2007. To this day, I have no clue what method he followed to prepare these peculiar crosswords. What I do know is how *I* would go about creating them: integer programming!
+
+> **Note:** Seems interesting but too long? Go straigth to
 
 > **Disclosure:** Some months after that morning, I discovered that Steve Morse had independently described the same technique I will discuss below for a similar problem [here](https://stmorse.github.io/journal/IP-Crossword-puzzles.html), so you might want to check his interesting post as well!
 
@@ -103,14 +109,29 @@ $$\qquad$$ **E**lfish
 
 which seems more reasonable.
 
+
 <details style="color:gray">
-	<summary>To those who lack Faith</summary>
-    You can easily check that in the both the quote and the two proposed sets of words there are 6 "a"s, 3 "b"s, 1 "c", 4 "d"s, 9 "e"s, 4 "f"s, 4 "h"s, 8 "i"s, 6 "l"s, 2 "m"s, 4 "n"s, 4 "o"s, 1 "p", 3 "r"s, 5 "s"s 6 "t"s, 2 "u"s, 1 "w" and 3 "y"s.
+	<summary markdown='span'>
+		To those who lack Faith
+	</summary>
+	Reorder the letters in the words according to the indices between brackets to get the desired excerpt, starting from 0:<br />
+	<b>W</b>(2) i (0) s (37) h (10) f (1) u (14) l (18) f (20) i (7) l (29) m (6) e (3) n (17) t (8);   <br />
+	<b>A</b> (4) r (27) i (19) d (5) l (45) y (33);  <br />
+	<b>R</b> (34) a (11) n (24) t (9) y (57);  <br />
+	<b>A</b> (16) u (28) d (31) i (51) l (46) e (21);  <br />  
+	<b>N</b> (39) i (53) h (13) i (55) l (54) i (61);  <br />
+	<b>D</b> (66) o (38) o (48) s (49) t (12);  <br />
+	<b>P</b> (47) o (58) t (40) b (25) o (71) y (72);  <br /> 
+	<b>E</b> (26) s (50) t (56) a (23) l (60);  <br />
+	<b>A</b> (36) s (65) b (32) e (30) s (68) t (69) i (64) n (43) e (35);  <br />
+	<b>C</b> (22) h (41) a (44) f (59) f (62) e (42) r (70) e (63) d (74);  <br />
+	<b>E</b> (67) m (15) b (52) e (73).
+
 </details>
 
 # Wait, why does it work?
 
-At the beginning, I was surprised by how the model effortlessly, every single time, found a solution for any *reasonable* combination of quote and title I threw in. However, it turns out that the probability that there exist solutions is **overwhelmingly** big.  
+At the beginning, I was surprised by how the model effortlessly, every single time, found a solution for any *reasonable* combination of quote and title I threw in. However, it turns out that the probability that there exist solutions is **overwhelmingly** large.  
 
 Since we are only interested in the frequency of the letters, it is natural to model the quotes as realizations of [multinomial random variables](https://en.wikipedia.org/wiki/Multinomial_distribution), where the number of trials $$n$$ is just the length of the excerpt and the probabilities $$p_a, p_b, \dots, p_z$$ are the relative frequencies of the letters in the English language. Of course, the same is true for modelling the selection of some words from the dictionary. And since the relative frequencies of letters in the dictionary are very similar to those in texts (see this Wikipedia [entry](https://en.wikipedia.org/wiki/Letter_frequency)), it is an acceptable approximation to use the same set of probabilities for both events. 
 
