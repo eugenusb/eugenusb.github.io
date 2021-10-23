@@ -17,7 +17,7 @@ Before proceeding, let me describe what exactly the puzzle looks like, since the
 
 The creator of this puzzle, Stanko Jerebic, was born in Slovenia and became interested in crosswords as a means of perfecting his Spanish after he moved to Buenos Aires, Argentina. Although he held a degree in Philosophy, he had several jobs ranging from carpenter to undertaker before becoming a full-time puzzle maker. According to the few notes about him I could find, his use of technology was limited to the digitalization of its puzzles. The "Literary Cryptogram" stopped featuring in the newspaper after his death in 2007. To this day, I have no clue what method he followed to prepare these peculiar crosswords. What I do know is how *I* would go about creating them: integer programming!
 
-> **Note:** Seems interesting but too long? Go straigth to
+> **Note:** Seems interesting but too long? Head straigth to my Github [repository](https://github.com/eugenusb/Cryptogram) to check the code.
 
 > **Disclosure:** Some months after that morning, I discovered that Steve Morse had independently described the same technique I will discuss below for a similar problem [here](https://stmorse.github.io/journal/IP-Crossword-puzzles.html), so you might want to check his interesting post as well!
 
