@@ -1,24 +1,26 @@
 ---
 layout: post
 title: "Problemsetting"
-subtitle: "Preparing problems for math mid-term exams can be an excruciating task if yo don't want to copy exercises from book. Unfortunately, I own no secret formula for coming up with cool exercises, but I can show you a couple ideas accompanied by examples."
+subtitle: "Preparing problems for math mid-term exams can be an excruciating task if you don't want to copy exercises from a book. Unfortunately, I own no secret formula for coming up with cool exercises, but I can show you a couple of ideas accompanied by examples."
 date:  2021-10-10
 categories: math
+background: '/img/problems_draft.jpg'
+caption: 'Backstage of creating problems.'
 ---
 
 # The challenge
 
-A couple of years ago, I was assigned as Teacher Assistant to the *Advanced Calculus* course for second-year math students. There is a wonderful textbook for this course, *Espaços Metricos* by Lages Lima (*Metric spaces*, original in portuguese) which contains an awful lot of interesting exercises. When the time to prepare the exams arrived, I was faced with the seemingly impossible task of coming up with exercises that:
+A couple of years ago, I was assigned as Teacher Assistant to the *Advanced Calculus* course for second-year math students. There is a wonderful textbook for this course, *Espaços Metricos* by Lages Lima (*Metric spaces*, original in Portuguese) which contains an awful lot of interesting exercises. When the time to prepare the exams arrived, I was faced with the seemingly impossible task of coming up with exercises that:
 
 + Didn't appear in Lima's book, which most students read and know,
 + Didn't appear in a previous exam, since student got access to statements and resolutions of many old exam,
 + And were appropriate and meaningful.
 
-I feel that I kind of succedded, but I'll let you decide!
+I feel that I kind of succeeded, but I'll let you decide!
 
-# Advanced Calculus exercises
+# Exercises and techniques
 
-As I anticipated, this post is far from pretending to be a guide to problemsetting. I will content myself with presenting some hacks to come up with problem statements and a concrete example for each of them. So, withour further ado, here we go!
+As I anticipated, this post is far from pretending to be a guide to problemsetting. I will content myself with presenting some hacks to come up with problem statements and a concrete example for each of them. So, without further ado, here we go!
 
 **Idea.** One of the most fascinating facts to discover during the course is, at least to me, that metric spaces which are difficult to visualize behave in many ways exactly like our familiar Euclidean spaces. Hence, many times you can formulate an easy problem, yet not devoid of interest, just by taking a known result from real numbers and ask for the analogue in say, a function space. More generally, this principle can be summarized as something like *sometimes mundane facts are surprising when viewed in a more abstract setting.*
 
@@ -63,7 +65,7 @@ equipped with the infinity norm. Let $$(f_n)_{n \in \mathbb{N}} \subseteq {\math
 
 **Idea.** Solve old mid-term exams. Can you solve them using two genuinely different strategies, or via a method that is not the expected one? If the answer is yes, you have an edge.
 
-**Example.** Let $$Lip_M^0[a,b] := \{ f:[a,b] \to \mathbb{R} : |f(x) - f(y)| \leq M|x -y| \text{ , } f(a) = 0\}$$ for a given $$M > 0$$. Prove that $$\int_{0}^{1} |f_n(x) - f(x)| \to 0$$ implies $$\|f_n - f\|_{\infty} \to 0$$.
+**Example.** Let $$Lip_M^0[a,b] := \{ f:[a,b] \to \mathbb{R} : |f(x) - f(y)| \leq M|x -y| \text{ , } f(a) = 0\}$$ for a given $$M > 0$$. Let $$(f_n)_{n\in \mathbb{N}} \subseteq Lip_M^0[a,b]$$, $$f \in Lip_M^0[a,b]$$. Prove that $$\int_{0}^{1} |f_n(x) - f(x)| \to 0$$ implies $$\|f_n - f\|_{\infty} \to 0$$.
 <details style="color:gray">
 	<summary>Hint</summary>
 	Probably, the easiest way to prove this is by using Arzela-Ascoli theorem. It is not difficult to show that the sequence \((f_n)_{n \in \mathbb{N}}\) should be uniformly convergent and in this case, \(f\) is the only possible candidate. However, it could also be solved by hand by noting that for any given \(\delta > 0\) and \(x \in [a,b]\),

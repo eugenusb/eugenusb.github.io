@@ -7,7 +7,7 @@
 title: Probably wrong
 email: eugenusb@gmail.com
 description: >- # this means to ignore newlines until "baseurl:"
-  Coming soon :)
+  Ideas, thoughts, code, questions and sometimes answers on Machine Learning, Algorithms and Math.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: eugenus_b
