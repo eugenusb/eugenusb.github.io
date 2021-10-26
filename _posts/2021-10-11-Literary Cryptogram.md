@@ -1,11 +1,11 @@
 ---
 layout: post
 title:  "Literary Cryptograms"
-subtitle: "Even wondered how complex crosswords and cryptograms are generated?  
+subtitle: "Ever wondered how complex crosswords and cryptograms are generated?  
 		In this post I explain how to build instances of a particularly challenging puzzle using Integer Programming."
 date:   2021-10-11
 categories: optimization
-background: '/img/crossword.jpg'
+background: '/img/crossword.JPG'
 caption: 'Photo by <a href="https://unsplash.com/@alexlowenthal?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Alexandra Lowenthal</a> on <a href="https://unsplash.com/s/photos/crossword?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>'
 ---
 
@@ -34,11 +34,13 @@ $$
 	\end{align*}
 $$
 
-You probably know that the knapsack problem is [NP-complete](https://en.wikipedia.org/wiki/NP-completeness), so you might be wondering: what good is IP? Although there is no known algorithm guaranteed to solve this problem faster than brute force in the worst-case scenario, the optimal solution for its *continuous* counterparts or relaxations (that is, the problem we obtain by removing the constraint that the variables be integers) can be *often* effectively obtained. Thus, by combining the branch and bound method with continuous relaxations and some magic tricks, we can expect to find optimal solutions for medium-sized IP problems (say, with up to roughly a hundred variables and constraints) in a reasonable amount of time. Of course, the true story is way more complex and nuanced than what I'm doing it justice, but the bottom line is that if you can express your particular NP problem as an IP problem of a modest size, it is definitely worth giving it a try armed with an IP solver.
+You probably know that the knapsack problem is [NP-complete](https://en.wikipedia.org/wiki/NP-completeness), so you might be wondering: what good is IP? Although there is no known algorithm guaranteed to solve this problem faster than brute force in the worst-case scenario, the optimal solution for its *continuous* counterparts or relaxations (that is, the problem we obtain by removing the constraint that the variables be integers) can be *often* effectively obtained. Thus, by combining the branch and bound method with continuous relaxations and some magic tricks, we can expect to find optimal solutions for medium-sized IP problems (say, with up to roughly a hundred variables and constraints) in a reasonable amount of time. Of course, the true story is way more complex and nuanced than what I'm doing it justice, but the bottom line is: if you can express your particular NP problem as an IP problem of a modest size, it is definitely worth giving it a try armed with an IP solver.
 
 # The model
 
-Without further ado, let's create cryptograms! Let's say that we want to pay homage to *War and Peace* by Leo Tolstoy. How do we know if a particular passage gives rise to a cryptogram? After a moment's reflection, the question becomes: do there exist words such that if we sum the occurrences of each letter in all of them, they will exactly match the frequencies of letters from the passage? 
+Without further ado, let's create cryptograms! 
+
+Imagine that we want to pay homage to *War and Peace* by Leo Tolstoy. How do we know if a particular passage gives rise to a cryptogram? After a moment's reflection, the question becomes: do there exist words such that if we sum the occurrences of each letter in all of them, they will exactly match the frequencies of letters from the passage? 
 In other words, the excerpt is nothing but a set of letters ordered in a particular way; what we need is that this set of letters can be rearranged to form some English words too. This sounds somewhat similar to the knapsack problem, doesn't it?
 
 Let's take a list of words $$w_1, \dots, w_n$$ (could be the whole dictionary or just some *interesting* words) and call $$o_{i,l}$$ the number of occurrences of letter $$l$$ in word $$i$$. If $$a_l$$ is the number of occurrences of letter $$l$$ in the excerpt, then we can model it as:
@@ -60,7 +62,9 @@ $$
 	\end{align*}
 $$
 
-And that's it! Ok, I lied, but we are almost there. The only missing component is the objective function. One possibility would be to choose a constant function to maximize as in $$\max \text{ } 1$$. The programs of this form only care about whether there exist *feasible* solutions, that is, solutions that satisfy the constraints. However, it would be better to assign a value to every word and try to generate the *best* possible cryptogram. A simple idea to define the value $$v_i$$ of word $$i$$ is to simply take the reciprocal of its relative frequency in books (the strangest, the better). These numbers can be obtained from [Google Ngrams Viewer](https://books.google.com/ngrams), and it was compiled in a simple list in this nice Github [repo](https://github.com/hackerb9/gwordlist).
+And that's it! Ok, I lied, but we are almost there. 
+
+The only missing component is the objective function. One possibility would be to choose a constant function to maximize as in $$\max \text{ } 1$$. The programs of this form only care about whether there exist *feasible* solutions, that is, solutions that satisfy the constraints. However, it would be better to assign a value to every word and try to generate the *best* possible cryptogram. A simple idea to define the value $$v_i$$ of word $$i$$ is to simply take the reciprocal of its relative frequency in books (the strangest, the better). These numbers can be obtained from [Google Ngrams Viewer](https://books.google.com/ngrams), and it was compiled in a simple list at this nice Github [repo](https://github.com/hackerb9/gwordlist).
 
 $$
 	\begin{align*}
@@ -115,7 +119,7 @@ which seems more reasonable.
 	<summary markdown='span'>
 		To those who lack Faith
 	</summary>
-	Reorder the letters in the words according to the indices between brackets to get the desired excerpt, starting from 0:<br />
+	Reorder the letters in the words according to the indices between brackets to get the desired excerpt, starting from 0:  <br />
 	<b>W</b>(2) i (0) s (37) h (10) f (1) u (14) l (18) f (20) i (7) l (29) m (6) e (3) n (17) t (8);   <br />
 	<b>A</b> (4) r (27) i (19) d (5) l (45) y (33);  <br />
 	<b>R</b> (34) a (11) n (24) t (9) y (57);  <br />
@@ -138,6 +142,6 @@ Since we are only interested in the frequency of the letters, it is natural to m
 
 Let's return for a moment to the *War and Peace* example. The probability of the quote under the model I just described is approximately $$2.85 \cdot 10^{-16}$$. This means that if we were to sample from a multinomial with the adequate parameters, we would expect to draw around $$\frac{1}{2.85 \cdot 10^{-16}} \simeq 3.51 \cdot 10^{15}$$ realizations to see the exact configuration corresponding to the quote. It may seem as a monstrous figure, but the number of ways to choose $$11$$ words (the number of letters in *War and Peace*) from a dictionary of $$64250$$ words is the combinatorial number $${64250}\choose{11}$$, which is greater than $$1.92 \cdot 10^{47}$$! 
 
-Of course, not all of these combinations will be valid candidates. For instance, they need to satisfy the restrictions on the initials: that is, exactly one of them should start with "w", three of with "a", and so forth. But even when imposing this condition, we are left with more than $$3.77 \cdot 10^{37}$$ configurations. It is necessary to further restrict the candidates to have the same total length as the quote, but I think you get the idea: the number of possible combinations from the dictionary is orders of magnitude larger than the probability of drawing the quote's configuration. 
+Of course, not all of these combinations will be valid candidates. For instance, they need to satisfy the restrictions on the initials: that is, exactly one of them should start with "w", three with "a", and so forth. But even when imposing this condition, we are left with more than $$3.77 \cdot 10^{37}$$ configurations. It is necessary to further restrict the candidates to have the same total length as the quote, but I think you get the idea: the number of possible combinations from the dictionary is orders of magnitude larger than the probability of drawing the quote's configuration. 
 
-Finally, in order to ensure that many of the possible sets of words have the combined length of the quote, we should take into account that the average length of the words in the dictionary (at least, the one I am using) is roughly $$\mu = 8.44$$, with standard deviation $$\sigma = 2.65$$. So, to be on the safe side, I usually consider quotes that have between 6 and 11 ($$\simeq 8.44 \pm 2.65$$) letters per each letter in the title. When the title is too short or too long to guarantee this condition, it is common to use the name or initials of the author. The heuristics behind this design decision is that the combined length of $$K$$ words (at least, if $$K$$ is large) should follow approximately a normal distribution $${\mathcal N}(K \cdot \mu, \sqrt{K} \cdot \sigma)$$ by the Central Limit Theorem. In practice, this means that every length in the range $$[K \cdot \mu - \sqrt{K} \cdot \sigma, K \cdot \mu + \sqrt{K} \cdot \sigma]$$ is achieved by a respectable proportion of combinations of $$K$$ words from the dictionary.
+Finally, in order to ensure that many of the possible sets of words have the combined length of the quote, we should take into account that the average length of the words in the dictionary (at least, the one I am using) is roughly $$\mu = 8.44$$, with standard deviation $$\sigma = 2.65$$. So, to be on the safe side, I usually consider quotes that have between 6 and 11 ($$\simeq 8.44 \pm 2.65$$) letters per each letter in the title. When the title is too short or too long to guarantee this condition, it is common to use the name or initials of the author. The heuristics behind this design decision is that the combined length of $$K$$ words (at least, if $$K$$ is large) should follow approximately a normal distribution $${\mathcal N}(K \cdot \mu, \sqrt{K} \cdot \sigma)$$ by the Central Limit Theorem. In practice, this means that every length in the range $$[K \cdot \mu - \sqrt{K} \cdot \sigma, K \cdot \mu + \sqrt{K} \cdot \sigma]$$ is achieved by a sizeable proportion of combinations of $$K$$ words from the dictionary.
