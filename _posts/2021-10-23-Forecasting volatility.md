@@ -77,7 +77,7 @@ Back to the realized volatility problem, we have a reasonable hope that the vola
 
 # Coda
 
-You can check the implementation details at my Github, but the credit really goes to this [repo](https://github.com/cpmpercussion/keras-mdn-layer). I merely adapted the Mixture Density Layer from there to fit an inverse Gamma rather than a mixture of gaussians.
+You can check the implementation details at my [Github](https://github.com/eugenusb/Optiver), but the credit really goes to this [repo](https://github.com/cpmpercussion/keras-mdn-layer). I merely adapted the Mixture Density Layer from there to fit an inverse Gamma rather than a mixture of gaussians.
 
 I would like to close this note by explaining how to choose our predictions once the distribution of $$y \vert x$$ is fitted. The competition requires us to submit predictions $$\hat{y}$$ in such a way that $$\mathbb{E} \left[ \left(\frac{y - \hat{y}}{y} \right)^2 \vert x \right]$$ is minimized. By optimizing the expression for $$\hat{y}$$, it is easy to find that the optimum value is $$\frac{\mathbb{E}\left[ \frac{1}{y}  \vert x \right]}{\mathbb{E}\left[ \frac{1}{y^2}  \vert x\right]}$$. Notice just how hard and unstable would be to estimate this quantities without a probabilistic model, while a bit of pen and paper computations reveals that 
 
