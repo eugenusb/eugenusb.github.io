@@ -6,6 +6,7 @@ date:  2021-10-10
 categories: math
 background: '/img/draft_problems.jpg'
 caption: 'Backstage of creating problems.'
+published: false
 ---
 
 # The challenge

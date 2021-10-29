@@ -2,7 +2,7 @@
 layout: post
 title:  "Forecasting volatility"
 subtitle: "Elementary statistics meets Neural Networks: inferring a parametric probability distribution."
-date: 2021-10-23
+date: 2021-11-30
 categories: machine learning
 background: '/img/crypto_volatility.jpg'
 caption: 'Photo by <a href="https://unsplash.com/@nampoh?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Maxim Hopman</a> on <a href="https://unsplash.com/s/photos/stock-market?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>'
@@ -20,7 +20,7 @@ $$
 	RV = \sqrt{\sum_{t=1}^{n} r_t^{2} },
 $$
 
-where $$r_t = \log\left( \frac{S_t}{S_{t-1}} \right) = \log(S_t) - \log(S_{t-1})$$. Usually the realized volatility is normalized by the length of the considered period (e.g., divided by $$\sqrt{n}$$), but let's adopt the above definition for consistency with the challenge. If this is the first time you see this definition, you might be wondering why using logarithmic returns instead of simply the stock price or the *raw returns* $$\frac{S_t}{S_{t-1}}$$. There are several technical reasons to prefer logarithmic returns over simpler alternatives, but I would like to stress only the following one: if we are to believe in the [Black-Scholes model](https://en.wikipedia.org/wiki/Black-Scholes_model) the prices are lognormally distributed and hence, the logarithmic returns follow a normal distribution. Thus, under this model the realized volatility admits a straightforward interpretation as a natural estimator of the standard deviation for the underlying normal distribution (classically denoted with $$\sigma$$).
+where $$r_t = \log\left( \frac{S_t}{S_{t-1}} \right) = \log(S_t) - \log(S_{t-1})$$. Usually the realized volatility is normalized by the length of the considered period (e.g., divided by $$\sqrt{n}$$), but let's adopt the above definition for consistency with the challenge. If this is the first time you see this definition, you might be wondering why using logarithmic returns instead of simply the stock price or the *raw returns* $$\frac{S_t}{S_{t-1}}$$. There are several technical reasons to prefer logarithmic returns over simpler alternatives, but I would like to stress only the following one: if we are to believe in the [Black-Scholes model](https://en.wikipedia.org/wiki/Black-Scholes_model) the prices are lognormally distributed and hence, the logarithmic returns follow a normal distribution. Thus, if we further assume that the mean of returns is $$0$$, under this model the realized volatility admits a straightforward interpretation as a natural estimator of the standard deviation for the underlying normal distribution (classically denoted with $$\sigma$$).
 
 As an immediate consequence, forecasting the realized volatility reduces to estimating a parameter (the variance) of a normal distribution from a number of samples, which is a classical problem in statistical inference. One of the most intuitive and simplest methods for achieving this is the maximum likelihood estimation method.
 
@@ -57,6 +57,7 @@ It's probably a good moment to address the question as to why we'd be interested
 As for the first one, it is well known that financial signals tend to be noisy. Although there are many different techniques to deal with this difficulty, I like the probability model approach because it attempts to handle the noise *by design*. Typically, the available data will be more than enough to robustly fit the few parameters of an underlying probabilistic model (and by this I mean a parametric probability distribution which the data at least approximately follow) even under the presence of noise. Moreover, you will automatically have at your disposal not just a number but a complete scenario with the probability of each event to help making optimal decisions. If I had to invest real money based on predictions, I would feel much more comfortable using a reasonably accurate probabilistic model that allows to quantify the risk than a black-box model that just outputs the next return, even at the cost of some precision loss.
 
 However, all this comes with the rather heavy assumption that the data under analysis follows a parametric probability distribution. Is it the case in our problem? Well, I just started checking all known continuous probability distributions until I stumbled upon the **inverse Gamma**, which looked promising. I gave it a shot using the `scipy.stats` library and this is what happened.
+
 <img class="img-fluid" src="/img/inv_gamma_fit.png" alt="Fitting the realized volatility with an Inverse Gamma distribution">
 
 <span class="caption">Fitting of the realized volatility with an inverse Gamma (empirical distribution in blue, fit in orange). Image by author.</span>

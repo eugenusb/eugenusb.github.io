@@ -12,7 +12,10 @@ baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: eugenus_b
 github_username: eugenusb
+linkedin_username: eugenio-borghini-841b301ba
 author: Eugenio Borghini
+
+google_analytics: UA-211612259-1
 
 # Build settings
 remote_theme: jekyll-theme-clean-blog
