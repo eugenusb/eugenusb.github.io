@@ -2,7 +2,7 @@
 layout: post
 title:  "Forecasting volatility"
 subtitle: "Elementary statistics meets Neural Networks: inferring a parametric probability distribution."
-date: 2021-11-30
+date: 2021-11-03
 categories: machine learning
 background: '/img/crypto_volatility.jpg'
 caption: 'Photo by <a href="https://unsplash.com/@nampoh?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Maxim Hopman</a> on <a href="https://unsplash.com/s/photos/stock-market?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>'
@@ -34,7 +34,7 @@ $$
 	\mathcal{L}(p) = P(x_1, \cdots, x_n | p) = \prod_{i=1}^{n} p^{x_i}(1-p)^{x_i}.
 $$
 
-To simplify the computations, a standard trick is finding the maxima of the logarithm of the likelihood, which doesn't change the result since $$\log$$ is an increasing map but transforms the product into a sum. Deriving with respect to $$p$$,  
+To simplify the computations, a standard trick is to find the maxima of the logarithm of the likelihood, which doesn't change the result since $$\log$$ is an increasing map but transforms the product into a sum. Deriving with respect to $$p$$,  
 
 $$
 	\frac{\partial \log(\mathcal{L}(p))}{\partial p} = \frac{\partial}{\partial p} \sum_{i=1}^{n} x_i \log(p) + (1-x_i)\log(1-p) = \sum_{i=1}^{n} \frac{x_i}{p} - \frac{1-x_i}{1-p}.
@@ -54,7 +54,7 @@ How come? A quick glance at the data reveals the reason: the distribution of the
 
 It's probably a good moment to address the question as to why we'd be interested in learning a probability distribution from the data instead of treating the realized volatility forecast as a regression problem (i.e. just trying to predict a number). In my opinion, the main motivations in this case are noise reduction and hedging against uncertainty.
 
-As for the first one, it is well known that financial signals tend to be noisy. Although there are many different techniques to deal with this difficulty, I like the probability model approach because it attempts to handle the noise *by design*. Typically, the available data will be more than enough to robustly fit the few parameters of an underlying probabilistic model (and by this I mean a parametric probability distribution which the data at least approximately follow) even under the presence of noise. Moreover, you will automatically have at your disposal not just a number but a complete scenario with the probability of each event to help making optimal decisions. If I had to invest real money based on predictions, I would feel much more comfortable using a reasonably accurate probabilistic model that allows to quantify the risk than a black-box model that just outputs the next return, even at the cost of some precision loss.
+As for the first one, it is well known that financial signals tend to be noisy. Although there are many different techniques to deal with this difficulty, I like the probability model approach because it attempts to handle the noise *by design*. Typically, the available data will be more than enough to robustly fit the few parameters of an underlying probabilistic model (and by this I mean a parametric probability distribution which the data at least approximately follow) even under the presence of noise. Moreover, you will automatically have at your disposal not just a number but a complete scenario with the probability of each event to help making optimal decisions. If I had to invest real money based on predictions, I would feel much more comfortable using a reasonably accurate probabilistic model that allows to quantify the risk rather than a black-box model that just outputs the next return, even at the cost of some precision loss.
 
 However, all this comes with the rather heavy assumption that the data under analysis follows a parametric probability distribution. Is it the case in our problem? Well, I just started checking all known continuous probability distributions until I stumbled upon the **inverse Gamma**, which looked promising. I gave it a shot using the `scipy.stats` library and this is what happened.
 
