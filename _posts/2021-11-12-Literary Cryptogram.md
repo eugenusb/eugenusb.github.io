@@ -3,11 +3,10 @@ layout: post
 title:  "Literary Cryptograms"
 subtitle: "Ever wondered how complex crosswords and cryptograms are generated?  
 		In this post I explain how to build instances of a particularly challenging puzzle using Integer Programming."
-date:   2021-10-11
+date:   2021-11-12
 categories: optimization
 background: '/img/crossword.jpg'
 caption: 'Photo by <a href="https://unsplash.com/@alexlowenthal?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Alexandra Lowenthal</a> on <a href="https://unsplash.com/s/photos/crossword?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>'
-published: false
 ---
 
 # Sunday
