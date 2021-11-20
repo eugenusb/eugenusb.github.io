@@ -2,11 +2,10 @@
 layout: post
 title: "Problemsetting"
 subtitle: "Preparing problems for math mid-term exams can be an excruciating task if you don't want to copy exercises from a book. Unfortunately, I own no secret formula for coming up with cool exercises, but I can show you a couple of ideas accompanied by examples."
-date:  2021-10-10
+date:  2021-11-19
 categories: math
 background: '/img/draft_problems.jpg'
 caption: 'Backstage of creating problems.'
-published: false
 ---
 
 # The challenge
